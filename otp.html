@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/otp.css' %}" />
+    
+</head>
+<body>
+  <form class="form" method="POST">
+    {% csrf_token %}
+    <div class="content">
+      <p align="center">OTP Verification</p>
+      <div class="inp">
+        <input type="text" class="input" maxlength="1" oninput="moveToNext(this)" />
+        <input type="text" class="input" maxlength="1" oninput="moveToNext(this)" />
+        <input type="text" class="input" maxlength="1" oninput="moveToNext(this)" />
+        <input type="text" class="input" maxlength="1" oninput="moveToNext(this)" />
+        <input type="text" class="input" maxlength="1" oninput="moveToNext(this)" />
+        <input type="text" class="input" maxlength="1" oninput="moveToNext(this)" />
+      </div>
+      <button type="button" onclick="sendOtpData()">Verify</button>
+    </div>
+  </form>
+  
+  <script>
+      function moveToNext(input) {
+          if (input.value.length === input.maxLength) {
+              const nextInput = input.nextElementSibling;
+              if (nextInput) {
+                  nextInput.focus();
+              }
+          }
+      }
+  </script>
+  
+<script src="{% static 'js/otp.js' %}"></script>
+</body>
+</html>

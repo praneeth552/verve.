@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/dashboard.css' %}?v=1"
+    />
+  </head>
+  <body>
+    <div id="search">
+      <i
+        class="fa-solid fa-magnifying-glass fa-1x"
+        style="margin-top: 10px; margin-left: 8px; color: rgb(163, 165, 166)"
+      ></i>
+      <div id="sub">
+        <ul>
+          <li>Verve</li>
+        </ul>
+      </div>
+      <div id="Sona" class="roboto-regular-italic"><b>{{username}}</b></div>
+      <div id="but">
+        <a href="{% url 'logout' %}"><button>logout</button></a>
+      </div>
+      <div id="newproject" class="roboto-regular-italic">
+        <a
+          href="{% url 'upload_image' %}"
+          style="margin: auto; font-size: 13px; text-decoration: none"
+          >NEW POST</a
+        >
+      </div>
+    </div>
+    <div id="groups">
+      <div class="group">
+        <i class="fa-solid fa-bars"></i>
+        <p class="text">Dashboard</p>
+      </div>
+      <div class="group">
+        <i class="fa-solid fa-users"></i>
+        <p class="text">Users</p>
+      </div>
+      <div class="group">
+        <i class="fa-regular fa-comment"></i>
+        <p class="text">Chat</p>
+      </div>
+      <div class="group">
+        <i class="fa-solid fa-inbox"></i>
+        <p class="text">Messages</p>
+      </div>
+      <div class="group">
+        <i class="fa-regular fa-folder"></i>
+        <a href="{% url 'myposts' %}"><p class="text">My Posts</p></a>
+      </div>
+    </div>
+    <div id="newtools">New tools</div>
+    <div class="secondgroups">
+      <div class="secondgroup">
+        <i class="fa-solid fa-location-arrow"></i>
+        <p class="text2">Loaction</p>
+      </div>
+      <div class="secondgroup">
+        <i class="fa-regular fa-file"></i>
+        <p class="text2">Documents</p>
+      </div>
+    </div>
+    <div id="about">
+      <div class="text3">About</div>
+      <div class="text3">Help center</div>
+      <div class="text3">Contact</div>
+    </div>
+    <div class="posts">
+      {% for post in posts %}
+      <div class="post">
+        <p><strong>{{ post.user.username }}</strong></p>
+        <img src="{{ post.image.url }}" alt="Post Image" />
+        <p>{{ post.caption }}</p>
+        <p>Posted on: {{ post.uploaded_at }}</p>
+    
+        <!-- Likes Section -->
+        <button class="like-button" data-post-id="{{ post.id }}">
+          Like ({{ post.likes.count }})
+        </button>
+    
+        <!-- Comments Section -->
+        <div class="comments">
+          <h3>Comments:</h3>
+          {% for comment in post.comments.all %}
+          <p><strong>{{ comment.user.username }}:</strong> {{ comment.text }}</p>
+          {% endfor %}
+          <form method="post" action="{% url 'add_comment' post.id %}">
+            {% csrf_token %}
+            <textarea name="text" placeholder="Add a comment"></textarea>
+            <button type="submit">Post</button>
+          </form>
+        </div>
+      </div>
+      <br />
+      <br />
+      {% endfor %}
+    </div>    
+    <script src="{% static 'js/dashboard.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<head>
+    <style>
+        .image-item img{
+            height: 300px;
+            width: 300px;
+        }
+    </style>
+</head>
+<h1>My Uploaded Images</h1>
+<div class="images">
+    {% for image in images %}
+    <div class="image-item">
+        <img src="{{ image.image.url }}" alt="User Image">
+        <p>Uploaded on: {{ image.uploaded_at }}</p>
+    </div>
+    {% empty %}
+    <p>You have not uploaded any images yet.</p>
+    {% endfor %}
+</div>
+

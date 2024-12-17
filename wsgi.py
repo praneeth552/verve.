@@ -11,7 +11,7 @@ import os
 import sys
 
 # Add your project to the system path
-sys.path.append('/Desktop/Project/Content')
+sys.path.append('/Users/saipraneethkotyada/Desktop/Project')
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Content.settings')
